@@ -1069,6 +1069,29 @@ section {
   padding-top: .5rem;
 }
 
+
+
+
+
+
+.about .row .video {
+  flex: 1 1 40rem; /* video area ku konjam fixed width */
+  display: flex;
+  justify-content: center; /* center align */
+  align-items: center;
+}
+
+.about .row .video video,
+.about .row .video img {
+  width: 100%;
+  height: 500px;     /* fixed height set */
+  object-fit: cover; /* crop pannitu container ku fit aagum */
+  border-radius: 10px;
+  display: block;
+}
+
+
+
 .services {
   background: var(--light-bg);
 }
