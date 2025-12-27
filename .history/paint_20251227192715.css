@@ -630,12 +630,11 @@ img {
 /* Hero Section */
 .hero {
   position: relative;
-  height: 90vh;
+  height: 85vh;
   overflow: hidden;
   display: flex;
-  align-items: flex-end;
-  padding-top: 80px;
-  padding-bottom: 10vh;
+  align-items: center;
+  padding-top: 3rem;
 }
 
 .hero-slider {

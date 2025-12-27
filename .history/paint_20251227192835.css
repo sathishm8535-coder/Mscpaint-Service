@@ -633,9 +633,8 @@ img {
   height: 90vh;
   overflow: hidden;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   padding-top: 80px;
-  padding-bottom: 10vh;
 }
 
 .hero-slider {

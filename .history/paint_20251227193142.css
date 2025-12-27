@@ -635,7 +635,7 @@ img {
   display: flex;
   align-items: flex-end;
   padding-top: 80px;
-  padding-bottom: 10vh;
+  padding-bottom: 1vh;
 }
 
 .hero-slider {
