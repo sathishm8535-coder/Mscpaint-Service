@@ -1,0 +1,134 @@
+/* Mobile Kebab Menu */
+.kebab-menu {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: var(--gray-100);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  border: none;
+  gap: 3px;
+}
+
+.kebab-menu:hover {
+  background: var(--primary-color);
+  color: var(--white);
+  transform: scale(1.1);
+}
+
+.kebab-menu span {
+  width: 4px;
+  height: 4px;
+  background: var(--gray-700);
+  border-radius: 50%;
+  transition: var(--transition-normal);
+}
+
+.kebab-menu:hover span {
+  background: var(--white);
+}
+
+.kebab-menu.active {
+  background: var(--primary-color);
+  color: var(--white);
+}
+
+.kebab-menu.active span {
+  background: var(--white);
+}
+
+/* Mobile Navigation */
+@media (max-width: 992px) {
+  .navbar {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 280px;
+    background: var(--white);
+    flex-direction: column;
+    padding: 2rem;
+    box-shadow: var(--shadow-xl);
+    border-radius: 1rem 0 1rem 1rem;
+    z-index: 1200;
+    transform: translateY(-20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 0.5rem;
+  }
+  
+  .navbar.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .nav-link {
+    padding: 1.2rem 1.5rem;
+    font-size: 1.6rem;
+    border-radius: 0.8rem;
+    background: var(--gray-50);
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  .nav-link::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    flex-shrink: 0;
+  }
+  
+  .nav-link[href="#home"]::before { content: '🏠'; }
+  .nav-link[href="#about"]::before { content: 'ℹ️'; }
+  .nav-link[href="#services"]::before { content: '🔧'; }
+  .nav-link[href="#projects"]::before { content: '📁'; }
+  .nav-link[href="#team"]::before { content: '👥'; }
+  .nav-link[href="#contact"]::before { content: '📞'; }
+  
+  .nav-link:hover,
+  .nav-link.active {
+    background: var(--primary-color);
+    color: var(--white);
+    border-color: var(--secondary-color);
+    transform: translateX(5px);
+  }
+  
+  .kebab-menu {
+    display: flex;
+    z-index: 1300;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    width: 260px;
+  }
+  
+  .nav-link {
+    font-size: 1.5rem;
+    padding: 1rem 1.2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    width: calc(100vw - 2rem);
+    right: 1rem;
+  }
+  
+  .nav-link {
+    font-size: 1.4rem;
+    padding: 1rem;
+  }
+}
