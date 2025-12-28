@@ -753,12 +753,13 @@ img {
   }
   
   .hero {
-    min-height: 100vh;
-    padding-top: 140px;
+    align-items: flex-start;
+    padding-top: 120px;
   }
   
   .hero-content {
-    padding: 12rem 2rem 6rem;
+    padding: 8rem 2rem 4rem;
+    margin-top: 5rem;
   }
 }
 
@@ -786,12 +787,13 @@ img {
   }
   
   .hero {
-    min-height: 100vh;
-    padding-top: 120px;
+    align-items: flex-start;
+    padding-top: 100px;
   }
   
   .hero-content {
-    padding: 15rem 1.5rem 6rem;
+    padding: 18rem 1.5rem 4rem;
+    margin-top: 6rem;
   }
 }
 
