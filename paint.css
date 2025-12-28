@@ -752,13 +752,8 @@ img {
     padding: 1.2rem 1.8rem;
   }
   
-  .hero {
-    min-height: 100vh;
-    padding-top: 140px;
-  }
-  
   .hero-content {
-    padding: 12rem 2rem 6rem;
+    padding-top: 20rem;
   }
 }
 
@@ -785,13 +780,8 @@ img {
     padding: 1rem 1.5rem;
   }
   
-  .hero {
-    min-height: 100vh;
-    padding-top: 120px;
-  }
-  
   .hero-content {
-    padding: 15rem 1.5rem 6rem;
+    padding-top: 25rem;
   }
 }
 
