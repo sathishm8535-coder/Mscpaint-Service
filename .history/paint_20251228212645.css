@@ -832,7 +832,7 @@ img {
   z-index: 2;
   max-width: 900px;
   color: var(--white);
-  padding: 16rem 3rem;
+  padding: 16rem 9rem;
   text-align: center;
   margin: 0 auto;
   animation: slideInLeft 1.2s ease-out;
