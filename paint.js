@@ -38,6 +38,7 @@ function throttle(func, limit) {
 const header = document.querySelector('.header');
 const navbar = document.querySelector('.navbar');
 const menuToggle = document.querySelector('.menu-toggle');
+const navbarClose = document.querySelector('.navbar-close');
 const searchToggle = document.querySelector('.search-toggle');
 const infoToggle = document.querySelector('.info-toggle');
 const searchForm = document.querySelector('.search-form');
@@ -84,7 +85,87 @@ menuToggle?.addEventListener('click', (e) => {
   menuToggle.classList.toggle('active');
   navbar?.classList.toggle('active');
   searchForm?.classList.remove('active');
+  
+  // Add/remove body scroll lock for mobile
+  if (navbar?.classList.contains('active')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
 });
+
+// Enhanced mobile menu functionality
+function initMobileMenu() {
+  const mobileBreakpoint = 992;
+  
+  function handleResize() {
+    if (window.innerWidth > mobileBreakpoint) {
+      // Desktop view - reset mobile menu states
+      navbar?.classList.remove('active');
+      menuToggle?.classList.remove('active');
+      searchForm?.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+  
+  // Handle window resize
+  window.addEventListener('resize', debounce(handleResize, 250));
+  
+  // Handle orientation change on mobile devices
+  window.addEventListener('orientationchange', () => {
+    setTimeout(() => {
+      handleResize();
+    }, 100);
+  });
+  
+  // Close mobile menu when clicking on nav links
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= mobileBreakpoint) {
+        navbar?.classList.remove('active');
+        menuToggle?.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+  
+  // Handle swipe gestures for mobile menu
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+  
+  document.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  });
+  
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const swipeDistance = touchEndX - touchStartX;
+    
+    // Swipe right to open menu (from left edge)
+    if (swipeDistance > swipeThreshold && touchStartX < 50) {
+      if (window.innerWidth <= mobileBreakpoint && !navbar?.classList.contains('active')) {
+        navbar?.classList.add('active');
+        menuToggle?.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    // Swipe left to close menu
+    if (swipeDistance < -swipeThreshold && navbar?.classList.contains('active')) {
+      navbar?.classList.remove('active');
+      menuToggle?.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+}
+
+// Initialize mobile menu enhancements
+document.addEventListener('DOMContentLoaded', initMobileMenu);
 
 // Search toggle
 searchToggle?.addEventListener('click', (e) => {
@@ -105,21 +186,33 @@ closeContactBtn?.addEventListener('click', () => {
   contactInfo?.classList.remove('active');
 });
 
+// Close mobile navbar
+navbarClose?.addEventListener('click', () => {
+  navbar?.classList.remove('active');
+  menuToggle?.classList.remove('active');
+  document.body.style.overflow = '';
+});
+
 // Close menus when clicking outside
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.header') && !e.target.closest('.contact-info')) {
     navbar?.classList.remove('active');
     searchForm?.classList.remove('active');
     menuToggle?.classList.remove('active');
+    contactInfo?.classList.remove('active');
+    document.body.style.overflow = '';
   }
 });
 
-// Close menus on scroll
-window.addEventListener('scroll', () => {
+// Close menus on scroll (with throttling for performance)
+const closeMenusOnScroll = throttle(() => {
   navbar?.classList.remove('active');
   searchForm?.classList.remove('active');
   menuToggle?.classList.remove('active');
-});
+  document.body.style.overflow = '';
+}, 100);
+
+window.addEventListener('scroll', closeMenusOnScroll);
 
 // ===========================
 // SMOOTH SCROLLING NAVIGATION
@@ -615,6 +708,7 @@ document.addEventListener('keydown', (e) => {
     searchForm?.classList.remove('active');
     contactInfo?.classList.remove('active');
     menuToggle?.classList.remove('active');
+    document.body.style.overflow = '';
   }
   
   // Navigate with arrow keys in hero slider
@@ -622,6 +716,14 @@ document.addEventListener('keydown', (e) => {
     document.querySelector('.hero-prev')?.click();
   } else if (e.key === 'ArrowRight') {
     document.querySelector('.hero-next')?.click();
+  }
+  
+  // Mobile menu keyboard navigation
+  if (e.key === 'Enter' || e.key === ' ') {
+    if (e.target === menuToggle) {
+      e.preventDefault();
+      menuToggle.click();
+    }
   }
 });
 
