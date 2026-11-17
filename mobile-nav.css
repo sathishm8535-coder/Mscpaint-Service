@@ -1,134 +1,80 @@
-/* Mobile Kebab Menu */
+﻿/* Mobile Kebab Menu */
 .kebab-menu {
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 45px;
-  height: 45px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   background: var(--gray-100);
   border-radius: 50%;
   cursor: pointer;
   transition: var(--transition-normal);
   border: none;
-  gap: 3px;
+  gap: 4px;
+  padding: 0;
 }
-
-.kebab-menu:hover {
-  background: var(--primary-color);
-  color: var(--white);
-  transform: scale(1.1);
-}
-
+.kebab-menu:hover,
+.kebab-menu:focus-visible { background: var(--primary-color); color: var(--white); }
 .kebab-menu span {
-  width: 4px;
-  height: 4px;
-  background: var(--gray-700);
-  border-radius: 50%;
-  transition: var(--transition-normal);
+  width: 4px; height: 4px; background: var(--gray-700); border-radius: 50%;
+  transition: var(--transition-normal); display: block;
 }
+.kebab-menu:hover span, .kebab-menu.active span { background: var(--white); }
+.kebab-menu.active { background: var(--primary-color); color: var(--white); }
 
-.kebab-menu:hover span {
-  background: var(--white);
-}
-
-.kebab-menu.active {
-  background: var(--primary-color);
-  color: var(--white);
-}
-
-.kebab-menu.active span {
-  background: var(--white);
-}
-
-/* Mobile Navigation */
 @media (max-width: 992px) {
-  .navbar {
+  .header .container-fluid { position: relative; }
+  .navbar#navbar, .header .navbar {
     position: absolute;
     top: 100%;
-    right: 0;
-    width: 280px;
+    right: 1.5rem;
+    left: auto;
+    width: min(320px, calc(100vw - 3rem));
+    height: auto;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
     background: var(--white);
     flex-direction: column;
-    padding: 2rem;
+    align-items: stretch;
+    padding: 1.2rem;
     box-shadow: var(--shadow-xl);
-    border-radius: 1rem 0 1rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid var(--gray-100);
     z-index: 1200;
-    transform: translateY(-20px);
+    transform: translateY(-8px);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    gap: 0.5rem;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    gap: 0.4rem;
   }
-  
-  .navbar.active {
+  .navbar#navbar.active, .header .navbar.active {
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
-  
-  .nav-link {
-    padding: 1.2rem 1.5rem;
+  .header .navbar .nav-link {
+    padding: 1.2rem 1.4rem;
     font-size: 1.6rem;
     border-radius: 0.8rem;
     background: var(--gray-50);
     width: 100%;
+    min-height: 44px;
     text-align: left;
     display: flex;
     align-items: center;
     gap: 1rem;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+    transition: background 0.2s ease, color 0.2s ease;
+    border: 1px solid transparent;
   }
-  
-  .nav-link::before {
-    content: '';
-    width: 20px;
-    height: 20px;
-    background-size: contain;
-    flex-shrink: 0;
-  }
-  
-  .nav-link[href="#home"]::before { content: '🏠'; }
-  .nav-link[href="#about"]::before { content: 'ℹ️'; }
-  .nav-link[href="#services"]::before { content: '🔧'; }
-  .nav-link[href="#projects"]::before { content: '📁'; }
-  .nav-link[href="#team"]::before { content: '👥'; }
-  .nav-link[href="#contact"]::before { content: '📞'; }
-  
-  .nav-link:hover,
-  .nav-link.active {
-    background: var(--primary-color);
-    color: var(--white);
-    border-color: var(--secondary-color);
-    transform: translateX(5px);
-  }
-  
-  .kebab-menu {
-    display: flex;
-    z-index: 1300;
-  }
+  .header .navbar .nav-link:hover,
+  .header .navbar .nav-link.active { background: var(--primary-color); color: var(--white); }
+  .kebab-menu { display: inline-flex; z-index: 1300; }
 }
-
-@media (max-width: 768px) {
-  .navbar {
-    width: 260px;
-  }
-  
-  .nav-link {
-    font-size: 1.5rem;
-    padding: 1rem 1.2rem;
-  }
-}
-
 @media (max-width: 576px) {
-  .navbar {
-    width: calc(100vw - 2rem);
-    right: 1rem;
-  }
-  
-  .nav-link {
-    font-size: 1.4rem;
-    padding: 1rem;
-  }
+  .navbar#navbar, .header .navbar { right: 1rem; width: calc(100vw - 2rem); }
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
@@ -7,20 +7,32 @@
    <meta name="google-site-verification" content="LbN8aj3UPVwlg7518OJGn3rfRIWkQ1pHwJ2qAFZesig" />
    <title>MSC Paint Service - Professional Painting Solutions</title>
    <link rel="icon" href="asset/l1.jpg" type="image/x-icon">
-   
-   <!-- Modern Fonts -->
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-   
-   <!-- Bootstrap 5 CSS -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-   
-   <!-- Font Awesome -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   
-   <!-- AOS Animation Library -->
-   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-   
+
+   <!-- Performance hints -->
+   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+   <link rel="preconnect" href="https://unpkg.com" crossorigin>
+   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link rel="dns-prefetch" href="//www.google.com">
+   <link rel="dns-prefetch" href="//wa.me">
+   <link rel="preload" as="image" href="asset/p1.jpg" fetchpriority="high">
+   <link rel="preload" as="image" href="asset/l1.jpg" fetchpriority="high">
+
+   <!-- Fonts (non-render-blocking) -->
+   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"></noscript>
+
+   <!-- Third-party CSS (non-render-blocking) -->
+   <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" onload="this.onload=null;this.rel='stylesheet'">
+   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"></noscript>
+   <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+   <link rel="preload" as="style" href="https://unpkg.com/aos@2.3.1/dist/aos.css" onload="this.onload=null;this.rel='stylesheet'">
+   <noscript><link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"></noscript>
+
    <!-- Custom CSS -->
+   <link rel="preload" as="style" href="paint.css">
    <link rel="stylesheet" href="paint.css">
    <link rel="stylesheet" href="mobile-nav.css">
 </head>
@@ -30,7 +42,7 @@
 <div id="loading-screen">
    <div class="loading-content">
       <div class="loading-logo">
-         <img src="asset/l1.jpg" alt="MSC Paint Service">
+         <img src="asset/l1.jpg" alt="MSC Paint Service" width="80" height="80" decoding="async" fetchpriority="high">
       </div>
       <div class="loading-spinner"></div>
       <p>Loading Excellence...</p>
@@ -47,7 +59,7 @@
    <div class="container-fluid">
       <div class="header-content">
          <div class="logo-section">
-            <img src="asset/l1.jpg" alt="MSC Paint Service" class="logo-img">
+            <img src="asset/l1.jpg" alt="MSC Paint Service" class="logo-img" width="50" height="50" decoding="async" fetchpriority="high">
             <a href="#home" class="logo">MSC<span>Paint Service</span></a>
          </div>
 
@@ -145,7 +157,7 @@
       <div class="hero-slide active" style="background-image: url('asset/p1.jpg')">
          <div class="hero-overlay"></div>
          <div class="container">
-            <div class="hero-content" data-aos="fade-up">
+            <div class="hero-content">
                <span class="hero-subtitle">We Are Professional</span>
                <h1 class="hero-title">Transform Your Space with <span>Premium Painting</span></h1>
                <p class="hero-description">Experience excellence in every brushstroke. We bring your vision to life with quality paints, expert craftsmanship, and unmatched attention to detail.</p>
@@ -219,7 +231,7 @@
       <div class="row align-items-center">
          <div class="col-lg-6" data-aos="fade-right">
             <div class="about-media">
-               <video src="videos/v1.mp4" loop muted autoplay class="about-video"></video>
+               <video class="about-video" data-src="videos/v1.mp4" preload="none" loop muted playsinline poster="asset/p2.jpg"></video>
                <div class="about-badge">
                   <span>7+</span>
                   <p>Years Experience</p>
@@ -229,7 +241,7 @@
          
          <div class="col-lg-6" data-aos="fade-left">
             <div class="about-content">
-               <h3>We believe a home is more than just walls – it's a place of dreams and memories.</h3>
+               <h3>We believe a home is more than just walls â€“ it's a place of dreams and memories.</h3>
                <p>Our mission is to transform every wall with quality painting, creative designs, and premium finishes. We use only trusted, high-quality paints and modern tools to ensure perfection in every project.</p>
                <p>From small homes to large-scale buildings, our promise is simple: <strong>"Professional Work. Elegant Finish. 100% Customer Satisfaction."</strong></p>
                
@@ -368,7 +380,7 @@
          <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="service-card">
                <div class="service-image">
-                  <img src="asset/s1.jpg" alt="Interior Painting">
+                  <img loading="lazy" decoding="async" src="asset/s1.jpg" alt="Interior Painting">
                   <div class="service-overlay">
                      <i class="fas fa-home"></i>
                   </div>
@@ -389,7 +401,7 @@
          <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="service-card">
                <div class="service-image">
-                  <img src="asset/w6.jpg" alt="Exterior Painting">
+                  <img loading="lazy" decoding="async" src="asset/w6.jpg" alt="Exterior Painting">
                   <div class="service-overlay">
                      <i class="fas fa-building"></i>
                   </div>
@@ -410,7 +422,7 @@
          <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="service-card">
                <div class="service-image">
-                  <img src="asset/s2.jpg" alt="Wall Design">
+                  <img loading="lazy" decoding="async" src="asset/s2.jpg" alt="Wall Design">
                   <div class="service-overlay">
                      <i class="fas fa-palette"></i>
                   </div>
@@ -431,7 +443,7 @@
          <div class="col-lg-6 col-md-6" data-aos="fade-up" data-aos-delay="400">
             <div class="service-card">
                <div class="service-image">
-                  <img src="asset/s3.jpg" alt="Texture Design">
+                  <img loading="lazy" decoding="async" src="asset/s3.jpg" alt="Texture Design">
                   <div class="service-overlay">
                      <i class="fas fa-brush"></i>
                   </div>
@@ -464,7 +476,7 @@
       <div class="projects-grid">
          <div class="project-item" data-aos="fade-up" data-aos-delay="100">
             <div class="project-image">
-               <img src="asset/w11.jpg" alt="Project 1">
+               <img loading="lazy" decoding="async" src="asset/w11.jpg" alt="Project 1">
                <div class="project-overlay">
                   <div class="project-content">
                      <h4>Modern Interior</h4>
@@ -479,7 +491,7 @@
          
          <div class="project-item" data-aos="fade-up" data-aos-delay="200">
             <div class="project-image">
-               <img src="asset/w10.jpg" alt="Project 2">
+               <img loading="lazy" decoding="async" src="asset/w10.jpg" alt="Project 2">
                <div class="project-overlay">
                   <div class="project-content">
                      <h4>Exterior Makeover</h4>
@@ -494,7 +506,7 @@
          
          <div class="project-item" data-aos="fade-up" data-aos-delay="300">
             <div class="project-image">
-               <img src="asset/w9.jpg" alt="Project 3">
+               <img loading="lazy" decoding="async" src="asset/w9.jpg" alt="Project 3">
                <div class="project-overlay">
                   <div class="project-content">
                      <h4>Texture Design</h4>
@@ -509,7 +521,7 @@
          
          <div class="project-item" data-aos="fade-up" data-aos-delay="400">
             <div class="project-image">
-               <img src="asset/w8.jpg" alt="Project 4">
+               <img loading="lazy" decoding="async" src="asset/w8.jpg" alt="Project 4">
                <div class="project-overlay">
                   <div class="project-content">
                      <h4>Wall Art Design</h4>
@@ -524,7 +536,7 @@
          
          <div class="project-item" data-aos="fade-up" data-aos-delay="500">
             <div class="project-image">
-               <img src="asset/w7.jpg" alt="Project 5">
+               <img loading="lazy" decoding="async" src="asset/w7.jpg" alt="Project 5">
                <div class="project-overlay">
                   <div class="project-content">
                      <h4>Premium Finish</h4>
@@ -539,7 +551,7 @@
          
          <div class="project-item" data-aos="fade-up" data-aos-delay="600">
             <div class="project-image">
-               <img src="asset/w6.jpg" alt="Project 6">
+               <img loading="lazy" decoding="async" src="asset/w6.jpg" alt="Project 6">
                <div class="project-overlay">
                   <div class="project-content">
                      <h4>Color Consultation</h4>
@@ -564,7 +576,7 @@
    <div class="container">
       <div class="video-container" data-aos="zoom-in">
          <div class="video-thumbnail" data-bs-toggle="modal" data-bs-target="#videoModal">
-            <img src="videos/l1.jpg" alt="Video Thumbnail">
+            <img loading="lazy" decoding="async" src="videos/l1.jpg" alt="Video Thumbnail">
             <div class="video-overlay"></div>
             <div class="play-button">
                <i class="fas fa-play"></i>
@@ -583,7 +595,7 @@
          </div>
          <div class="modal-body p-0">
             <div class="ratio ratio-16x9">
-               <video id="modalVideo" controls>
+               <video id="modalVideo" controls preload="none">
                   <source src="videos/v2.mp4" type="video/mp4">
                   Your browser does not support the video tag.
                </video>
@@ -606,7 +618,7 @@
          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="team-card">
                <div class="team-image">
-                  <img src="asset/p6.jpg" alt="Chandru M">
+                  <img loading="lazy" decoding="async" src="asset/p6.jpg" alt="Chandru M">
                   <div class="team-overlay">
                      <div class="team-social">
                         <a href="https://www.instagram.com/mr._kedu_kettavan?igsh=MXJlZ2hxdW10ZnZpcg==">
@@ -626,7 +638,7 @@
          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="team-card">
                <div class="team-image">
-                  <img src="asset/p7.jpg" alt="Omer Muthu Raj P">
+                  <img loading="lazy" decoding="async" src="asset/p7.jpg" alt="Omer Muthu Raj P">
                   <div class="team-overlay">
                      <div class="team-social">
                         <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -637,24 +649,6 @@
                   <h3>Omer Muthu Raj P</h3>
                   <p>Wall Designer</p>
                   <span class="team-experience">Royalplay & Texture Specialist</span>
-               </div>
-            </div>
-         </div>
-         
-         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="team-card">
-               <div class="team-image">
-                  <img src="asset/p8.jpg" alt="Kathiravan C">
-                  <div class="team-overlay">
-                     <div class="team-social">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                     </div>
-                  </div>
-               </div>
-               <div class="team-content">
-                  <h3>Kathiravan C</h3>
-                  <p>Senior Painter</p>
-                  <span class="team-experience">Interior & Exterior Expert</span>
                </div>
             </div>
          </div>
@@ -796,7 +790,7 @@
             <div class="col-lg-4 col-md-6">
                <div class="footer-section">
                   <div class="footer-logo">
-                     <img src="asset/l1.jpg" alt="MSC Paint Service">
+                     <img loading="lazy" decoding="async" src="asset/l1.jpg" alt="MSC Paint Service">
                      <h3>MSC Paint Service</h3>
                   </div>
                   <p>Transforming spaces with premium painting solutions. Your trusted partner for all residential and commercial painting needs.</p>
@@ -900,31 +894,13 @@
 </div>
 
 <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script src="mobile-nav.js"></script>
-<script src="paint.js"></script>
-
-<script>
-// Initialize AOS
-AOS.init({
-   duration: 1000,
-   once: true,
-   offset: 100
-});
-
-// Initialize EmailJS
-emailjs.init({ publicKey: "yiMzeSr04gqEy48ou" });
-
-// Initialize LightGallery
-if (document.querySelector('.projects-grid')) {
-   lightGallery(document.querySelector('.projects-grid'), {
-      selector: '.project-link'
-   });
-}
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+<script src="mobile-nav.js" defer></script>
+<script src="paint.js" defer></script>
+<script src="perf-init.js" defer></script>
 
 </body>
 </html>

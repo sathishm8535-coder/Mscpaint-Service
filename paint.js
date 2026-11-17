@@ -37,7 +37,7 @@ function throttle(func, limit) {
 
 const header = document.querySelector('.header');
 const navbar = document.querySelector('.navbar');
-const menuToggle = document.querySelector('.menu-toggle');
+const menuToggle = document.querySelector('.menu-toggle') || document.getElementById('kebab-menu');
 const navbarClose = document.querySelector('.navbar-close');
 const searchToggle = document.querySelector('.search-toggle');
 const infoToggle = document.querySelector('.info-toggle');
@@ -51,33 +51,60 @@ const progressBar = document.querySelector('.progress-bar');
 // LOADING SCREEN
 // ===========================
 
-window.addEventListener('load', function() {
+function hideLoadingScreen() {
   const loadingScreen = document.getElementById('loading-screen');
-  
+  if (!loadingScreen || loadingScreen.dataset.hidden === '1') return;
+  loadingScreen.dataset.hidden = '1';
+  loadingScreen.classList.add('fade-out');
   setTimeout(() => {
-    if (loadingScreen) {
-      loadingScreen.classList.add('fade-out');
-      setTimeout(() => {
-        loadingScreen.style.display = 'none';
-      }, 500);
-    }
-  }, 1500);
+    loadingScreen.style.display = 'none';
+  }, 300);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  requestAnimationFrame(hideLoadingScreen);
 });
+window.addEventListener('load', hideLoadingScreen);
+setTimeout(hideLoadingScreen, 1200);
 
 // ===========================
 // HEADER FUNCTIONALITY
 // ===========================
 
 // Header scroll effect
+let lastScrollY = window.scrollY || 0;
+let scrollTicking = false;
+function updateOnScroll() {
+  const y = window.scrollY || 0;
+  if (header) {
+    if (y > 100) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }
+  if (progressBar) {
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+    const scrollPercent = docHeight > 0 ? (y / docHeight) * 100 : 0;
+    progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+  }
+  if (backToTopBtn) {
+    if (y > 300) backToTopBtn.classList.add('show');
+    else backToTopBtn.classList.remove('show');
+  }
+  lastScrollY = y;
+  scrollTicking = false;
+}
 const handleHeaderScroll = throttle(() => {
-  if (window.scrollY > 100) {
-    header?.classList.add('scrolled');
-  } else {
-    header?.classList.remove('scrolled');
+  if (!scrollTicking) {
+    requestAnimationFrame(updateOnScroll);
+    scrollTicking = true;
   }
 }, 100);
 
-window.addEventListener('scroll', handleHeaderScroll);
+window.addEventListener('scroll', () => {
+  if (!scrollTicking) {
+    requestAnimationFrame(updateOnScroll);
+    scrollTicking = true;
+  }
+}, { passive: true });
 
 // Mobile menu toggle
 menuToggle?.addEventListener('click', (e) => {
@@ -210,9 +237,9 @@ const closeMenusOnScroll = throttle(() => {
   searchForm?.classList.remove('active');
   menuToggle?.classList.remove('active');
   document.body.style.overflow = '';
-}, 100);
+}, 150);
 
-window.addEventListener('scroll', closeMenusOnScroll);
+window.addEventListener('scroll', closeMenusOnScroll, { passive: true });
 
 // ===========================
 // SMOOTH SCROLLING NAVIGATION
@@ -253,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
           navbar?.classList.remove('active');
           menuToggle?.classList.remove('active');
           searchForm?.classList.remove('active');
+          document.body.style.overflow = '';
           
           // Update active nav link
           document.querySelectorAll('.nav-link').forEach(navLink => {
@@ -271,33 +299,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // ===========================
 // SCROLL PROGRESS BAR
 // ===========================
-
-const updateScrollProgress = throttle(() => {
-  if (progressBar) {
-    const scrollTop = window.pageYOffset;
-    const docHeight = document.body.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    progressBar.style.width = Math.min(scrollPercent, 100) + '%';
-  }
-}, 50);
-
-window.addEventListener('scroll', updateScrollProgress);
+// (merged into unified scroll handler)
 
 // ===========================
 // BACK TO TOP BUTTON
 // ===========================
-
-const handleBackToTop = throttle(() => {
-  if (backToTopBtn) {
-    if (window.pageYOffset > 300) {
-      backToTopBtn.classList.add('show');
-    } else {
-      backToTopBtn.classList.remove('show');
-    }
-  }
-}, 100);
-
-window.addEventListener('scroll', handleBackToTop);
 
 backToTopBtn?.addEventListener('click', () => {
   window.scrollTo({
@@ -379,14 +385,20 @@ class HeroSlider {
   
   startAutoPlay() {
     this.stopAutoPlay(); // Clear any existing interval
-    this.slideInterval = setInterval(() => {
+    const run = () => {
+      if (document.hidden) {
+        this.slideInterval = setTimeout(run, 6000);
+        return;
+      }
       this.nextSlide();
-    }, 4000); // Auto-scroll every 4 seconds
+      this.slideInterval = setTimeout(run, 6000);
+    };
+    this.slideInterval = setTimeout(run, 6000); // Auto-scroll every 6 seconds
   }
   
   stopAutoPlay() {
     if (this.slideInterval) {
-      clearInterval(this.slideInterval);
+      clearTimeout(this.slideInterval);
       this.slideInterval = null;
     }
   }
@@ -799,30 +811,23 @@ window.addEventListener('unhandledrejection', (e) => {
 // ===========================
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize all components
+  // Initialize components
   initLazyLoading();
-  preloadImages();
   updateActiveNavigation();
-  
-  // Add smooth scroll behavior to all internal links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        const headerHeight = header?.offsetHeight || 80;
-        const targetPosition = target.offsetTop - headerHeight;
-        
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        });
-      }
-    });
-  });
-  
+
+  // Warm critical resources only after load and when idle to avoid blocking first paint
+  const warmCritical = () => {
+    try {
+      ['asset/p2.jpg', 'asset/p3.jpg'].forEach(src => { const img = new Image(); img.decoding = 'async'; img.src = src; });
+    } catch (_) {}
+  };
+  window.addEventListener('load', () => {
+    if ('requestIdleCallback' in window) requestIdleCallback(warmCritical, { timeout: 2000 });
+    else setTimeout(warmCritical, 300);
+  }, { once: true });
+
   // Initialize tooltips if Bootstrap is available
-  if (typeof bootstrap !== 'undefined') {
+  if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
   }
